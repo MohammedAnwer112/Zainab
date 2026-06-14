@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إلى زينب ❤️</title>
+    <title>من محمد إلى زينب 🐾</title>
     <style>
         :root {
             --primary-pink: #ff85a2;
             --soft-pink: #ffeef2;
-            --dark-bg: #1a1a1a;
+            --dark-text: #1a1a1a;
+            --kitty-red: #ff4d6d;
         }
 
         body {
@@ -19,25 +20,23 @@
             align-items: center;
             min-height: 100vh;
             background: var(--soft-pink);
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
         }
 
-        /* أنميشن القلوب في الخلفية */
         .bg-hearts {
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            pointer-events: none;
+            top: 0;
+            left: 0;
         }
 
-        .heart-particle {
+        .floating-heart {
             position: absolute;
             color: rgba(255, 133, 162, 0.4);
-            animation: floatUp 6s linear infinite;
+            animation: floatUp 6s infinite linear;
         }
 
         @keyframes floatUp {
@@ -49,143 +48,166 @@
             background: white;
             padding: 30px;
             border-radius: 40px;
-            box-shadow: 0 15px 40px rgba(255, 133, 162, 0.2);
+            box-shadow: 0 20px 50px rgba(255, 133, 162, 0.2);
             text-align: center;
             width: 85%;
             max-width: 380px;
             border: 4px solid #ffcad4;
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10;
         }
 
         @keyframes popIn {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
 
-        .img-box {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .img-container {
+            font-size: 70px;
+            margin-bottom: 20px;
+            display: block;
         }
 
-        .img-box img {
-            max-width: 100%;
-            max-height: 100%;
-            border-radius: 15px;
-            object-fit: contain;
-        }
-
-        .message-box {
-            background: var(--dark-bg);
-            color: #fff;
-            padding: 15px 20px;
-            border-radius: 18px;
+        .msg-bubble {
+            background: var(--dark-text);
+            color: white;
+            padding: 20px;
+            border-radius: 20px;
             font-size: 1.3rem;
             font-weight: bold;
             margin-bottom: 25px;
             border: 2px solid var(--primary-pink);
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
-        .btn {
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .next-btn {
             background: var(--primary-pink);
             color: white;
             border: none;
-            padding: 12px 45px;
-            border-radius: 30px;
-            font-size: 1.2rem;
-            font-weight: bold;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-size: 1.1rem;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 133, 162, 0.4);
+            box-shadow: 0 8px 20px rgba(255, 133, 162, 0.4);
             transition: 0.3s;
+            font-weight: bold;
         }
 
-        .btn:hover { transform: scale(1.1); }
+        .next-btn:hover { transform: scale(1.1); background: #ff6b8e; }
+        
+        .no-btn {
+            background: #a3a3a3;
+            transition: all 0.2s ease;
+        }
 
-        .hidden { display: none; }
+        .hidden { display: none !important; }
 
-        .big-heart {
+        .heart-trigger {
             font-size: 100px;
             cursor: pointer;
-            animation: heartbeat 1s infinite;
+            animation: beat 1s infinite;
             display: inline-block;
-            filter: drop-shadow(0 0 10px rgba(255, 133, 162, 0.5));
         }
 
-        @keyframes heartbeat {
+        @keyframes beat {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+            50% { transform: scale(1.2); }
         }
     </style>
 </head>
 <body>
 
-<div class="bg-hearts" id="bg"></div>
+<div class="bg-hearts" id="hearts-box"></div>
 
-<div id="step1" class="card">
-    <div class="img-box">
-        <img src="https://static.wikia.nocookie.net/sanrio/images/9/9f/Hello_Kitty.jpg" alt="Kitty 1">
-    </div>
-    <div class="message-box">هلو زينب</div>
-    <button class="btn" onclick="next(2)">هلووو</button>
+<div id="s1" class="card">
+    <div class="img-container">🐱🎀</div>
+    <div class="msg-bubble">هلو زينب 🐾 جيتج بأسئلة سريعة!</div>
+    <div class="btn-container"><button class="next-btn" onclick="show(2)">نبـدأ عيني ومستعدة ✨</button></div>
 </div>
 
-<div id="step2" class="card hidden">
-    <div class="img-box">
-        <img src="https://lohsgrizzlygazette.com/wp-content/uploads/2024/12/Untitled_Artwork-2-1200x1200.jpg" alt="Kitty 2">
-    </div>
-    <div class="message-box">زينب عندي سؤال الجججج</div>
-    <button class="btn" onclick="next(3)">شنو هو؟</button>
+<div id="s2" class="card hidden">
+    <div class="img-container">🧐✨</div>
+    <div class="msg-bubble">تدرين اكو شخص يومه وكولشي بيه ما يكمل بدون ضحكتج؟</div>
+    <div class="btn-container"><button class="next-btn" onclick="show(3)">منو هذا؟ 🥺</button></div>
 </div>
 
-<div id="step3" class="card hidden">
-    <div class="img-box">
-        <img src="https://static.wikia.nocookie.net/hellokitty/images/5/52/Sanrio_Characters_Hello_Kitty_Image026.png" alt="Kitty 3">
-    </div>
-    <div class="message-box">بس مستحية اسألج اياه 😓</div>
-    <button class="btn" onclick="next(4)">اسأليني</button>
+<div id="s3" class="card hidden">
+    <div class="img-container">👸✨</div>
+    <div class="msg-bubble">هذا محمد.. وتدرين بالسماء اكو قمر واحد وبالقاع واقف يقرا هالكلام 🤍</div>
+    <div class="btn-container"><button class="next-btn" onclick="show(4)">خجلتني حيل 🫠</button></div>
 </div>
 
-<div id="step4" class="card hidden">
-    <div class="img-box">
-        <img src="https://static.wikia.nocookie.net/sanrio/images/9/9f/Hello_Kitty.jpg" alt="Kitty 4">
+<div id="s4" class="card hidden">
+    <div class="img-container">☁️🌈</div>
+    <div class="msg-bubble">لو خيروج تسافرين لكل مكان فوق الغيم لو تظلين يمي؟</div>
+    <div class="btn-container">
+        <button class="next-btn" onclick="show(5)">أظل يمك طبعاً 🤍</button>
+        <button class="next-btn" onclick="alert('ماكو غيم، راح تظلين يمي! 😜'); show(5)">أطير فوق الغيم ☁️</button>
     </div>
-    <div class="message-box">شنو هاا 😠 تحبين عبود لو لا؟</div>
-    <button class="btn" onclick="next(5)">ها؟ 😳</button>
 </div>
 
-<div id="step5" class="card hidden">
-    <div class="message-box">اذا تحبين عبود دوسي ع القلب</div>
-    <div class="big-heart" onclick="next(6)">❤️</div>
+<div id="s5" class="card hidden">
+    <div class="img-container">😠🍒</div>
+    <div class="msg-bubble">زين وصلنا للزبدة.. تحبين محمد لو لا؟ وبدون لف ودوران! 😠</div>
+    <div class="btn-container">
+        <button class="next-btn" onclick="show(6)">اي أحبه 😳❤️</button>
+        <button class="next-btn no-btn" id="disappear-btn" onmouseover="shrinkBtn()" onclick="shrinkBtn()" ontouchstart="shrinkBtn()">لا 😠</button>
+    </div>
 </div>
 
-<div id="step6" class="card hidden">
-    <div class="img-box">
-        <img src="https://lohsgrizzlygazette.com/wp-content/uploads/2024/12/Untitled_Artwork-2-1200x1200.jpg" alt="Kitty 5">
-    </div>
-    <div class="message-box">كلشي ولا ضوجتج زينب.. احبج ❤️</div>
-    <button class="btn" onclick="alert('وأني هم أحبج يا عبود! ❤️')">أعشقج واحبج 🥺❤️</button>
+<div id="s6" class="card hidden">
+    <div class="msg-bubble">إذا تحبين محمد وتتمنين يظل وياج للموت، دوسي ع القلب الكبير بسرعة!</div>
+    <div class="btn-container"><div class="heart-trigger" onclick="show(7)">❤️</div></div>
+</div>
+
+<div id="s7" class="card hidden">
+    <div class="img-container">😻🌹</div>
+    <div class="msg-bubble">كلشي ولا ضوجتج زينب.. محمد يحبج ويعشقج لأخر نفس ❤️</div>
+    <div class="btn-container"><button class="next-btn" onclick="alert('وأني هم أعشقك يا محمد! ❤️🐾')">أعشقك واحبك 🥺❤️</button></div>
 </div>
 
 <script>
-    function next(s) {
+    function show(step) {
+        // إخفاء كل البطاقات
         document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-        document.getElementById('step' + s).classList.remove('hidden');
+        // إظهار البطاقة المطلوبة
+        const target = document.getElementById('s' + step);
+        if (target) {
+            target.classList.remove('hidden');
+        }
     }
 
-    // توليد قلوب الخلفية عشوائياً
-    const bg = document.getElementById('bg');
-    for(let i=0; i<15; i++) {
+    let scale = 1;
+    function shrinkBtn() {
+        const btn = document.getElementById('disappear-btn');
+        if (!btn) return;
+        
+        scale -= 0.3; // تصغير الزر تدريجياً
+        if (scale <= 0.1) {
+            btn.style.display = 'none'; // اختفاء نهائي عند صغره جداً
+        } else {
+            btn.style.transform = 'scale(' + scale + ')';
+        }
+    }
+
+    // توليد القلوب في الخلفية
+    const box = document.getElementById('hearts-box');
+    const heartEmojis = ['❤️', '💖', '🐾', '🌸'];
+    for (let i = 0; i < 20; i++) {
         let h = document.createElement('div');
-        h.className = 'heart-particle';
-        h.innerHTML = '❤️';
+        h.className = 'floating-heart';
+        h.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
         h.style.left = Math.random() * 100 + 'vw';
         h.style.animationDelay = Math.random() * 5 + 's';
-        h.style.fontSize = (Math.random() * 20 + 10) + 'px';
-        bg.appendChild(h);
+        h.style.fontSize = (Math.random() * 15 + 15) + 'px';
+        box.appendChild(h);
     }
 </script>
 
